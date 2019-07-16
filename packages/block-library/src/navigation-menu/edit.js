@@ -23,6 +23,10 @@ import useBlockNavigator from './use-block-navigator';
 
 function NavigationMenu( {
 	attributes,
+<<<<<<< HEAD
+=======
+	clientId,
+>>>>>>> horizontal option for the mover, missing icons, broken hover
 	setAttributes,
 	clientId,
 } ) {
@@ -53,7 +57,7 @@ function NavigationMenu( {
 			<div className="wp-block-navigation-menu">
 				<InnerBlocks
 					allowedBlocks={ [ 'core/navigation-menu-item' ] }
-					renderAppender={ InnerBlocks.ButtonBlockAppender }
+					horizontalMover={ true }
 				/>
 			</div>
 		</Fragment>
