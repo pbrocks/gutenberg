@@ -23,14 +23,6 @@ import useBlockNavigator from './use-block-navigator';
 
 function NavigationMenu( {
 	attributes,
-<<<<<<< HEAD
-=======
-	clientId,
-<<<<<<< HEAD
->>>>>>> horizontal option for the mover, missing icons, broken hover
-=======
-	isSelected,
->>>>>>> positioned the mover to the middle left
 	setAttributes,
 	clientId,
 } ) {
