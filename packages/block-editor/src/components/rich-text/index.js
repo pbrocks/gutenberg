@@ -325,6 +325,7 @@ class RichTextWrapper extends Component {
 			undo,
 			placeholder,
 			keepPlaceholderOnFocus,
+			withoutWrapper,
 			// eslint-disable-next-line no-unused-vars
 			allowedFormats,
 			withoutInteractiveFormatting,
@@ -402,9 +403,11 @@ class RichTextWrapper extends Component {
 							</BlockFormatControls>
 						) }
 						{ isSelected && inlineToolbar && hasFormats && (
-							<IsolatedEventContainer
-								className="editor-rich-text__inline-toolbar block-editor-rich-text__inline-toolbar"
-							>
+							<IsolatedEventContainer className={ classnames(
+								'editor-rich-text__inline-toolbar',
+								'block-editor-rich-text__inline-toolbar',
+								{ 'without-wrapper': withoutWrapper }
+							) }>
 								<FormatToolbar />
 							</IsolatedEventContainer>
 						) }
@@ -431,6 +434,10 @@ class RichTextWrapper extends Component {
 				}
 			</RichText>
 		);
+
+		if ( withoutWrapper ) {
+			return content;
+		}
 
 		return (
 			<div className={ classnames( wrapperClasses, wrapperClassName ) }>
