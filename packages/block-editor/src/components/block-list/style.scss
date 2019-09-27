@@ -1241,7 +1241,7 @@
 		padding: 10px $block-padding;
 	}
 
-	&.block-editor-block-crash-warning {
+	&.block-editor-block-list__block-crash-warning {
 		// Reset margin-bottom. Without this, the block has negative margin.
 		// Because of the crash the block also has no content, so this avoids
 		// overlapping of the next block.
