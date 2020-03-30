@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { get, invoke, isUndefined, pickBy } from 'lodash';
+import { get, includes, invoke, isUndefined, pickBy } from 'lodash';
 import classnames from 'classnames';
 
 /**
@@ -119,11 +119,22 @@ class LatestPostsEdit extends Component {
 			{}
 		);
 		const selectCategories = ( tokens ) => {
+			const hasNoSuggestion = tokens.some(
+				( token ) => typeof token === 'string' && ! suggestions[ token ]
+			);
+			if ( hasNoSuggestion ) {
+				return;
+			}
 			// Categories that are already will be objects, while new additions will be strings (the name).
 			// allCategories nomalizes the array so that they are all objects.
-			const allCategories = tokens.map( ( token ) =>
-				typeof token === 'string' ? suggestions[ token ] : token
-			);
+			const allCategories = tokens.map( ( token ) => {
+				return typeof token === 'string' ? suggestions[ token ] : token;
+			} );
+			// We do nothing if the category is not selected
+			// from suggestions.
+			if ( includes( allCategories, null ) ) {
+				return false;
+			}
 			setAttributes( { categories: allCategories } );
 		};
 
@@ -352,20 +363,30 @@ class LatestPostsEdit extends Component {
 							[ `align${ featuredImageAlign }` ]: !! featuredImageAlign,
 						} );
 
-						const postExcerpt =
+						const needsReadMore =
 							excerptLength <
 								excerpt.trim().split( ' ' ).length &&
-							post.excerpt.raw === ''
-								? excerpt
-										.trim()
-										.split( ' ', excerptLength )
-										.join( ' ' ) +
-								  ' ... <a href=' +
-								  post.link +
-								  'target="_blank" rel="noopener noreferrer">' +
-								  __( 'Read more' ) +
-								  '</a>'
-								: excerpt;
+							post.excerpt.raw === '';
+
+						const postExcerpt = needsReadMore ? (
+							<>
+								{ excerpt
+									.trim()
+									.split( ' ', excerptLength )
+									.join( ' ' ) }
+								{ /* translators: excerpt truncation character, default …  */ }
+								{ __( ' … ' ) }
+								<a
+									href={ post.link }
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{ __( 'Read more' ) }
+								</a>
+							</>
+						) : (
+							excerpt
+						);
 
 						return (
 							<li key={ i }>
@@ -411,9 +432,7 @@ class LatestPostsEdit extends Component {
 								{ displayPostContent &&
 									displayPostContentRadio === 'excerpt' && (
 										<div className="wp-block-latest-posts__post-excerpt">
-											<RawHTML key="html">
-												{ postExcerpt }
-											</RawHTML>
+											{ postExcerpt }
 										</div>
 									) }
 								{ displayPostContent &&

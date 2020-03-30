@@ -1,5 +1,9 @@
+@import "../../interface/src/style.scss";
+
 @import "./components/block-editor/style.scss";
 @import "./components/header/style.scss";
+@import "./components/header/fullscreen-mode-close/style.scss";
+@import "./components/header/more-menu/style.scss";
 @import "./components/notices/style.scss";
 @import "./components/sidebar/style.scss";
 @import "./components/template-switcher/style.scss";
