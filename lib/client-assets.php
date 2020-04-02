@@ -398,6 +398,15 @@ function gutenberg_register_packages_styles( &$styles ) {
 
 	gutenberg_override_style(
 		$styles,
+		'wp-edit-navigation',
+		gutenberg_url( 'build/edit-navigation/style.css' ),
+		array( 'wp-components', 'wp-block-editor', 'wp-edit-blocks' ),
+		filemtime( gutenberg_dir_path() . 'build/edit-navigation/style.css' )
+	);
+	$styles->add_data( 'wp-edit-navigation', 'rtl', 'replace' );
+
+	gutenberg_override_style(
+		$styles,
 		'wp-edit-site',
 		gutenberg_url( 'build/edit-site/style.css' ),
 		array( 'wp-components', 'wp-block-editor', 'wp-edit-blocks' ),
@@ -682,4 +691,7 @@ if ( class_exists( 'WP_Patterns_Registry' ) && ! WP_Patterns_Registry::get_insta
 	register_pattern( 'core/two-buttons', gutenberg_load_block_pattern( 'two-buttons' ) );
 	register_pattern( 'core/cover-abc', gutenberg_load_block_pattern( 'cover-abc' ) );
 	register_pattern( 'core/two-images', gutenberg_load_block_pattern( 'two-images' ) );
+	register_pattern( 'core/hero-two-columns', gutenberg_load_block_pattern( 'hero-two-columns' ) );
+	register_pattern( 'core/numbered-features', gutenberg_load_block_pattern( 'numbered-features' ) );
+	register_pattern( 'core/its-time', gutenberg_load_block_pattern( 'its-time' ) );
 }
